@@ -68,6 +68,7 @@ function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
   const lbImg = document.getElementById("lb-img");
   const lbCap = document.getElementById("lb-cap");
   const lbClose = document.getElementById("lb-close");
+  if (!lb) return;
   function openLightbox(src, caption) {
     lbImg.src = src;
     lbImg.alt = caption || "art";
@@ -119,8 +120,7 @@ function wallizePrints() {
   }))).then(() => {
     const wallW = wall.clientWidth;
     const widths = [90, 100, 110, 120, 130];
-    const gutter = 12;
-    const colW = 140;
+    const gutter = 12, colW = 140;
     const cols = Math.max(3, Math.floor((wallW + gutter) / (colW + gutter)));
     const colX = Array.from({ length: cols }, (_, i) => Math.floor(i * (wallW / cols)));
     const colY = Array.from({ length: cols }, () => 0);
