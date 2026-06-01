@@ -3,203 +3,117 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>bo bowen</title>
+<title>gallery // bo bowen</title>
 <link rel="stylesheet" href="styles.css" />
-<style>
-
-#leafterm {
-  position: fixed;
-  inset: 0;
-  margin: 0;
-  padding: 16px;
-  z-index: 0;
-  pointer-events: none;
-  white-space: pre;
-  font-family: ui-monospace, sfmono-regular, menlo, consolas, "liberation mono", monospace;
-  font-size: 14px;
-  line-height: 16px;
-  opacity: 0.7;
-  color: rgba(255, 211, 80, 0.9);
-  text-shadow: 0 0 8px rgba(255,200,50,0.3);
-}
-
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 16px;
-  align-items: start;
-  margin-top: 14px;
-}
-
-.hero-col {
-  border: 1px solid var(--line);
-  background: var(--panel);
-  padding: 14px;
-  font-size: 12px;
-  line-height: 1.8;
-  color: var(--dim);
-  min-height: 300px;
-}
-
-.hero-col p { margin: 0 0 10px; }
-
-.hero-center {
-  border: 1px solid var(--line);
-  background: var(--panel);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-center img {
-  width: 100%;
-  display: block;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.hero-label {
-  font-size: 10px;
-  color: var(--dim);
-  margin-top: 8px;
-  letter-spacing: 0.05em;
-}
-
-.anecdotes {
-  margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.anecdote {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 16px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  padding: 12px;
-  align-items: start;
-}
-
-.anecdote.flip {
-  grid-template-columns: 1fr 280px;
-}
-
-.anecdote-img img {
-  width: 100%;
-  display: block;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.anecdote.flip .anecdote-img { order: 2; }
-.anecdote.flip .anecdote-text { order: 1; }
-
-.anecdote-text {
-  font-size: 12px;
-  line-height: 1.8;
-  color: var(--dim);
-  padding: 4px 0;
-}
-
-.anecdote-text p { margin: 0 0 10px; }
-
-.anecdote-title {
-  font-size: 11px;
-  color: #7ec8b0;
-  margin-bottom: 8px;
-  letter-spacing: 0.04em;
-}
-
-@media (max-width: 700px) {
-  .hero { grid-template-columns: 1fr; }
-  .anecdote, .anecdote.flip { grid-template-columns: 1fr; }
-  .anecdote.flip .anecdote-img,
-  .anecdote.flip .anecdote-text { order: unset; }
-}
-
-</style>
 </head>
 <body>
 
-<pre id="leafterm" aria-hidden="true"></pre>
+<pre id="fishterm" aria-hidden="true"></pre>
 
 <div class="page">
 
   <header class="topbar">
     <div class="row">
-      <span class="kw">bo bowen</span>
+      <span class="kw">gallery</span><span class="dim">.js</span>
       <span class="dim"> — </span>
       <span class="dim">before i jump like monkey give me banana</span>
     </div>
     <div class="row dim">
+      <span class="fn">name</span><span class="dim">:</span> <span>Bo Bowen</span>
+      <span class="dim"> • </span>
       <span class="fn">contact</span><span class="dim">:</span>
       <a class="link" href="https://instagram.com/deformer6" target="_blank" rel="noreferrer">deformer6</a>
       <span class="dim"> / </span>
       <a class="link" href="mailto:huevonerias@gmail.com">huevonerias@gmail.com</a>
     </div>
     <nav class="nav">
-      <a class="nav-link active" href="index.html">home()</a>
-      <a class="nav-link" href="gallery.html">gallery()</a>
+      <a class="nav-link" href="index.html">home()</a>
+      <a class="nav-link active" href="gallery.html">gallery()</a>
       <a class="nav-link" href="store.html">store()</a>
     </nav>
   </header>
 
   <main class="main">
 
-    <div class="hero">
-
-      <div class="hero-col">
-        <p>write whatever you want here.</p>
-        <p>introduce yourself. say something weird. leave it blank.</p>
+    <section class="panel" id="gallery">
+      <div class="panel-head">
+        <span class="dim">gallery()</span>
+        <span class="dim">click to zoom • esc to close</span>
       </div>
+      <div class="panel-body">
+        <div class="wall" id="wall">
 
-      <div class="hero-center">
-        <img src="images/your-main-gif.gif" alt="main" />
-        <div class="hero-label">// caption here</div>
+          <figure class="card" data-full="images/gammorahaintnosodombih.jpg" data-caption="art_01 // gammorahaintnosodombih • 2025">
+            <div class="frame"><img src="images/gammorahaintnosodombih.jpg" alt="art 01" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/ascii-art(5).png" data-caption="art_02 // mojaasciii • 2025">
+            <div class="frame"><img src="images/ascii-art(5).png" alt="art 02" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/nonprofit.jpg" data-caption="art_03 // nonprofit • 2025">
+            <div class="frame"><img src="images/nonprofit.jpg" alt="art 03" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/enlacortedeloshuevones.jpg" data-caption="art_04 // enlacortedeloshuevones • 2023">
+            <div class="frame"><img src="images/enlacortedeloshuevones.jpg" alt="art 04" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/IMG_1397.HEIC" data-caption="art_05 // sunnylacarlpidgeons • 2024">
+            <div class="frame"><img src="images/IMG_1397.HEIC" alt="art 05" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/pipedream.jpg" alt="art 06" data-caption="art_06 // pipedream • 2025">
+            <div class="frame"><img src="images/pipedream.jpg" alt="art 06" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/selfportrait.jpg" data-caption="// selfportraint • 2023">
+            <div class="frame"><img src="images/selfportrait.jpg" alt="art 07" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/message@thecenteroftheearth.jpg" data-caption="art_08 // message@thecenteroftheearth • 2025">
+            <div class="frame"><img src="images/message@thecenteroftheearth.jpg" alt="art 08" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/keepyersunnysideup.jpg" data-caption="art_09 // keepyersunnysideup • 2025">
+            <div class="frame"><img src="images/keepyersunnysideup.jpg" alt="art 09" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/SKM_C30825081320040.jpg" data-caption="art_10 // hellomrsnailface • 2022">
+            <div class="frame"><img src="images/SKM_C30825081320040.jpg" alt="art 10" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/dontacceptchecksfromthisman.jpg" data-caption="art_11 // dontacceptchecksfromthisman • 2022">
+            <div class="frame"><img src="images/dontacceptchecksfromthisman.jpg" alt="art 11" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/snp.png" data-caption="art_12 // snp • 2025">
+            <div class="frame"><img src="images/snp.png" alt="art 12" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/IMG_2407.jpg" data-caption="art_13 // sceneofreoccuringevents • 2021">
+            <div class="frame"><img src="images/IMG_2407.jpg" alt="art 13" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/ratrace.jpg" data-caption="art_14 // ratrace • 2022">
+            <div class="frame"><img src="images/ratrace.jpg" alt="art 14" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/fishwitch.jpg" data-caption="art_15 // fishwitch • 2022">
+            <div class="frame"><img src="images/fishwitch.jpg" alt="art 15" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/huevon,.jpg" data-caption="art_16 // huevon • 2023">
+            <div class="frame"><img src="images/huevon,.jpg" alt="art 16" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+          <figure class="card" data-full="images/udanceidanceinfrancelemmesniffyounderpants.jpg" data-caption="art_17 // • 2020">
+            <div class="frame"><img src="images/udanceidanceinfrancelemmesniffyounderpants.jpg" alt="art 17" loading="lazy" /><pre class="ascii-frame" aria-hidden="true"></pre></div>
+          </figure>
+
+        </div>
       </div>
-
-      <div class="hero-col">
-        <p>more text on this side.</p>
-        <p>links, thoughts, whatever.</p>
-      </div>
-
-    </div>
-
-    <div class="anecdotes">
-
-      <div class="anecdote">
-        <div class="anecdote-img">
-          <img src="images/your-gif-1.gif" alt="gif 1" />
-        </div>
-        <div class="anecdote-text">
-          <div class="anecdote-title">// entry_01</div>
-          <p>write your anecdote here. talk about the piece, the process, what you were thinking.</p>
-        </div>
-      </div>
-
-      <div class="anecdote flip">
-        <div class="anecdote-img">
-          <img src="images/your-gif-2.gif" alt="gif 2" />
-        </div>
-        <div class="anecdote-text">
-          <div class="anecdote-title">// entry_02</div>
-          <p>another entry. this one flips the image to the right side.</p>
-        </div>
-      </div>
-
-      <div class="anecdote">
-        <div class="anecdote-img">
-          <img src="images/your-gif-3.gif" alt="gif 3" />
-        </div>
-        <div class="anecdote-text">
-          <div class="anecdote-title">// entry_03</div>
-          <p>duplicate this block as many times as you need.</p>
-        </div>
-      </div>
-
-    </div>
+    </section>
 
   </main>
 
@@ -212,49 +126,14 @@
 
 </div>
 
-<script>
-(function() {
-  const term = document.getElementById("leafterm");
-  if (!term) return;
-  const cellW = 8, cellH = 16;
-  let w = 80, h = 24;
-  const stars = [];
-  function rand(a, b) { return a + Math.random() * (b - a); }
-  function resize() {
-    w = Math.max(40, Math.floor(window.innerWidth / cellW));
-    h = Math.max(14, Math.floor(window.innerHeight / cellH));
-  }
-  window.addEventListener("resize", resize, { passive: true });
-  resize();
-  function addStar() {
-    stars.push({ x: rand(0, w), y: 0, vy: rand(1, 3), vx: rand(-0.3, 0.3), life: rand(6, 14), age: 0 });
-  }
-  for (let i = 0; i < 40; i++) {
-    stars.push({ x: rand(0, w), y: rand(0, h), vy: rand(1, 3), vx: rand(-0.3, 0.3), life: rand(6, 14), age: rand(0, 10) });
-  }
-  let last = performance.now();
-  function tick(now) {
-    const dt = Math.min(0.05, (now - last) / 1000);
-    last = now;
-    if (Math.random() < 0.14) addStar();
-    for (let i = stars.length - 1; i >= 0; i--) {
-      const s = stars[i];
-      s.age += dt;
-      s.y += s.vy * dt;
-      s.x += s.vx * dt;
-      if (s.y > h || s.age > s.life) stars.splice(i, 1);
-    }
-    const grid = Array.from({ length: h }, () => Array(w).fill(" "));
-    for (const s of stars) {
-      const sx = s.x | 0, sy = s.y | 0;
-      if (sy >= 0 && sy < h && sx >= 0 && sx < w) grid[sy][sx] = "*";
-    }
-    term.textContent = grid.map(r => r.join("")).join("\n");
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-})();
-</script>
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lb-box" role="dialog" aria-modal="true" aria-label="image viewer">
+    <button id="lb-close" class="lb-close" type="button" aria-label="close">x</button>
+    <img id="lb-img" alt="" />
+    <div id="lb-cap" class="lb-cap"></div>
+  </div>
+</div>
 
+<script src="app.js"></script>
 </body>
 </html>
