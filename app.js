@@ -2,23 +2,6 @@ function rand(a, b) { return a + Math.random() * (b - a); }
 function pick(arr)  { return arr[(Math.random() * arr.length) | 0]; }
 function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
 
-(function initNav() {
-  const links = document.querySelectorAll(".nav-link");
-  const sections = document.querySelectorAll(".panel[id]");
-  function showSection(id) {
-    sections.forEach(s => s.classList.toggle("section-hidden", s.id !== id));
-    links.forEach(l => l.classList.toggle("active", l.dataset.section === id));
-    if (id === "gallery") wallizePrints();
-  }
-  links.forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      showSection(link.dataset.section);
-    });
-  });
-  showSection("gallery");
-})();
-
 (function initFish() {
   const term = document.getElementById("fishterm");
   if (!term) return;
@@ -135,9 +118,10 @@ function wallizePrints() {
     img.addEventListener("error", res, { once: true });
   }))).then(() => {
     const wallW = wall.clientWidth;
-    const widths = [120, 140, 160, 180, 200];
-    const gutter = 18, colW = 220;
-    const cols = Math.max(2, Math.floor((wallW + gutter) / (colW + gutter)));
+    const widths = [90, 100, 110, 120, 130];
+    const gutter = 12;
+    const colW = 140;
+    const cols = Math.max(3, Math.floor((wallW + gutter) / (colW + gutter)));
     const colX = Array.from({ length: cols }, (_, i) => Math.floor(i * (wallW / cols)));
     const colY = Array.from({ length: cols }, () => 0);
     let maxY = 0;
@@ -148,8 +132,8 @@ function wallizePrints() {
       const img = card.querySelector("img");
       const ratio = (img && img.naturalWidth) ? (img.naturalHeight / img.naturalWidth) : 0.75;
       const h = Math.round((w * ratio) + 26);
-      const x = Math.round(colX[c] + rand(-10, 10));
-      const y = Math.round(colY[c] + rand(0, 10));
+      const x = Math.round(colX[c] + rand(-6, 6));
+      const y = Math.round(colY[c] + rand(0, 8));
       card.style.width = `${w}px`;
       card.style.left = `${x}px`;
       card.style.top = `${y}px`;
