@@ -1,172 +1,116 @@
+function rand(a, b) { return a + Math.random() * (b - a); }
+function pick(arr)  { return arr[(Math.random() * arr.length) | 0]; }
+function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
 
-const cards = document.querySelectorAll(".card");
-const lb = document.getElementById("lightbox");
-const lbImg = document.getElementById("lb-img");
-const lbCap = document.getElementById("lb-cap");
-const lbClose = document.getElementById("lb-close");
-
-function openLightbox(src, caption) {
-  lbImg.src = src;
-  lbImg.alt = caption || "art";
-  lbCap.textContent = caption || "";
-  lb.classList.add("open");
-  lb.setAttribute("aria-hidden", "false");
-}
-function closeLightbox() {
-  lb.classList.remove("open");
-  lb.setAttribute("aria-hidden", "true");
-  lbImg.src = "";
-}
-
-cards.forEach(card => {
-  card.addEventListener("click", () => {
-    openLightbox(card.getAttribute("data-full"), card.getAttribute("data-caption"));
+(function initNav() {
+  const links = document.querySelectorAll(".nav-link");
+  const sections = document.querySelectorAll(".panel[id]");
+  function showSection(id) {
+    sections.forEach(s => s.classList.toggle("section-hidden", s.id !== id));
+    links.forEach(l => l.classList.toggle("active", l.dataset.section === id));
+    if (id === "gallery") wallizePrints();
+  }
+  links.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      showSection(link.dataset.section);
+    });
   });
-});
+  showSection("gallery");
+})();
 
-lbClose?.addEventListener("click", closeLightbox);
-lb?.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
-window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
-
-(() => {
+(function initFish() {
   const term = document.getElementById("fishterm");
   if (!term) return;
-
-
-  const cellW = 8;  
-  const cellH = 16;  
-  let w = 80;
-  let h = 24;
-
-  const fishes = [];
-  const bubbles = [];
-
-  const frames = [
-    "<><((('>",
-    "<><((('>>",
-    "<><((('>>>",
-    "<><((('>>",
-  ];
-
-  const bubbleChars = ["o", "°", "·", "○"];
-
-  const rand = (a, b) => a + Math.random() * (b - a);
-  const pick = (arr) => arr[(Math.random() * arr.length) | 0];
-  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-
+  const cellW = 8, cellH = 16;
+  let w = 80, h = 24;
+  const fishes = [], bubbles = [];
+  const frames = ["<><((('> ","<><((('>>","<><((('>.", "<><((('>>"];
+  const bubbleChars = ["o","°","·","○"];
   function resize() {
     w = Math.max(40, Math.floor(window.innerWidth / cellW));
     h = Math.max(14, Math.floor(window.innerHeight / cellH));
   }
   window.addEventListener("resize", resize, { passive: true });
   resize();
-
   function addFish() {
     const dir = Math.random() < 0.5 ? 1 : -1;
-    fishes.push({
-      x: dir === 1 ? -12 : w + 12,
-      y: (rand(2, h - 3) | 0),
-      dir,
-      speed: rand(8, 18),          
-      frame: (Math.random() * frames.length) | 0,
-      wiggle: rand(2, 6),          
-      drift: rand(0.02, 0.08),     
-    });
+    fishes.push({ x: dir === 1 ? -12 : w + 12, y: (rand(2, h - 3) | 0), dir, speed: rand(8, 18), frame: (Math.random() * frames.length) | 0, wiggle: rand(2, 6), drift: rand(0.02, 0.08) });
   }
-
   function addBubble() {
     const source = fishes.length && Math.random() < 0.55 ? pick(fishes) : null;
-    bubbles.push({
-      x: source ? (source.x + rand(2, 10) | 0) : (rand(0, w - 1) | 0),
-      y: source ? (source.y | 0) : (h - 1),
-      vy: rand(6, 16), 
-      ch: pick(bubbleChars),
-      life: rand(0.9, 2.2),
-      age: 0,
-    });
+    bubbles.push({ x: source ? ((source.x + rand(2, 10)) | 0) : (rand(0, w - 1) | 0), y: source ? (source.y | 0) : (h - 1), vy: rand(6, 16), ch: pick(bubbleChars), life: rand(0.9, 2.2), age: 0 });
   }
-
-
-  fishes.length = 0;
   for (let i = 0; i < 7; i++) addFish();
-
   let last = performance.now();
-
   function tick(now) {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
-
-
     if (Math.random() < 0.22) addBubble();
-
-
     for (const f of fishes) {
       f.x += f.dir * f.speed * dt;
-
-
       if (f.dir === 1 && f.x > w + 14) f.x = -14;
       if (f.dir === -1 && f.x < -14) f.x = w + 14;
-
-      if (Math.random() < dt * f.wiggle) {
-        f.frame = (f.frame + 1) % frames.length;
-      }
-
-
-      if (Math.random() < f.drift) {
-        f.y = clamp(f.y + (Math.random() < 0.5 ? -1 : 1), 1, h - 3);
-      }
+      if (Math.random() < dt * f.wiggle) f.frame = (f.frame + 1) % frames.length;
+      if (Math.random() < f.drift) f.y = clamp(f.y + (Math.random() < 0.5 ? -1 : 1), 1, h - 3);
     }
-
     for (let i = bubbles.length - 1; i >= 0; i--) {
       const b = bubbles[i];
       b.age += dt;
       b.y -= b.vy * dt;
       if (b.y < 0 || b.age > b.life) bubbles.splice(i, 1);
     }
-
-
     const grid = Array.from({ length: h }, () => Array(w).fill(" "));
-
-
     for (const b of bubbles) {
-      const x = b.x | 0, y = b.y | 0;
-      if (y >= 0 && y < h && x >= 0 && x < w) grid[y][x] = b.ch;
+      const bx = b.x | 0, by = b.y | 0;
+      if (by >= 0 && by < h && bx >= 0 && bx < w) grid[by][bx] = b.ch;
     }
-
-
     for (const f of fishes) {
       const art = frames[f.frame];
-      const x0 = f.x | 0;
-      const y0 = f.y | 0;
-
       const s = f.dir === 1 ? art : art.split("").reverse().join("");
-
+      const x0 = f.x | 0, y0 = f.y | 0;
       for (let i = 0; i < s.length; i++) {
-        const x = x0 + i;
-        if (y0 >= 0 && y0 < h && x >= 0 && x < w) grid[y0][x] = s[i];
+        const fx = x0 + i;
+        if (y0 >= 0 && y0 < h && fx >= 0 && fx < w) grid[y0][fx] = s[i];
       }
     }
-
     term.textContent = grid.map(r => r.join("")).join("\n");
     requestAnimationFrame(tick);
   }
-
   requestAnimationFrame(tick);
 })();
 
-
-function rand(min, max) { return Math.random() * (max - min) + min; }
-function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
+(function initLightbox() {
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lb-img");
+  const lbCap = document.getElementById("lb-cap");
+  const lbClose = document.getElementById("lb-close");
+  function openLightbox(src, caption) {
+    lbImg.src = src;
+    lbImg.alt = caption || "art";
+    lbCap.textContent = caption || "";
+    lb.classList.add("open");
+    lb.setAttribute("aria-hidden", "false");
+  }
+  function closeLightbox() {
+    lb.classList.remove("open");
+    lb.setAttribute("aria-hidden", "true");
+    lbImg.src = "";
+  }
+  document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("click", () => openLightbox(card.getAttribute("data-full"), card.getAttribute("data-caption")));
+  });
+  lbClose?.addEventListener("click", closeLightbox);
+  lb?.addEventListener("click", e => { if (e.target === lb) closeLightbox(); });
+  window.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+})();
 
 function makeAsciiFrame(cols, rows) {
   cols = Math.max(8, cols);
   rows = Math.max(6, rows);
-
   const top = "+" + "-".repeat(cols - 2) + "+";
   const mid = "|" + " ".repeat(cols - 2) + "|";
   const bot = "+" + "-".repeat(cols - 2) + "+";
-
   let out = top + "\n";
   for (let r = 0; r < rows - 2; r++) out += mid + "\n";
   out += bot;
@@ -174,79 +118,49 @@ function makeAsciiFrame(cols, rows) {
 }
 
 function frameize() {
-  document.querySelectorAll(".ascii-frame").forEach((pre) => {
+  document.querySelectorAll(".ascii-frame").forEach(pre => {
     const box = pre.getBoundingClientRect();
-    const charH = 12;
-    const charW = 7.2;
-
-    const cols = Math.floor((box.width - 8) / charW);
-    const rows = Math.floor((box.height - 8) / charH);
-
+    const cols = Math.floor((box.width - 8) / 7.2);
+    const rows = Math.floor((box.height - 8) / 12);
     pre.textContent = makeAsciiFrame(cols, rows);
   });
 }
 
-
-async function wallizePrints() {
+function wallizePrints() {
   const wall = document.getElementById("wall");
   if (!wall) return;
-
-  
   const imgs = [...wall.querySelectorAll("img")];
-  await Promise.all(imgs.map(img => img.complete ? Promise.resolve() : new Promise(res => {
-    img.addEventListener("load", res, { once:true });
-    img.addEventListener("error", res, { once:true });
-  })));
-
-  const wallW = wall.clientWidth;
-
-
-  const widths = [120, 140, 160, 180, 200];
-
-  const gutter = 18;
-  const colW = 220; 
-  const cols = Math.max(2, Math.floor((wallW + gutter) / (colW + gutter)));
-
-  const colX = Array.from({ length: cols }, (_, i) => Math.floor(i * (wallW / cols)));
-  const colY = Array.from({ length: cols }, () => 0);
-
-  let maxY = 0;
-
-  [...wall.querySelectorAll(".card")].forEach((card, i) => {
-    const w = pick(widths);
-
-
-    let c = 0;
-    for (let j = 1; j < cols; j++) if (colY[j] < colY[c]) c = j;
-
-    const img = card.querySelector("img");
-    const ratio = (img && img.naturalWidth) ? (img.naturalHeight / img.naturalWidth) : 0.75;
-
-    const frameExtra = (7 * 2) + 2; 
-    const h = Math.round((w * ratio) + frameExtra + 10);
-
-    const x = Math.round(colX[c] + rand(-10, 10));
-    const y = Math.round(colY[c] + rand(0, 10));
-
-    card.style.width = `${w}px`;
-    card.style.left = `${x}px`;
-    card.style.top = `${y}px`;
-    card.style.setProperty("--rot", `${rand(-2.2, 2.2).toFixed(2)}deg`);
-
-    colY[c] = y + h + gutter;
-    maxY = Math.max(maxY, colY[c]);
+  Promise.all(imgs.map(img => img.complete ? Promise.resolve() : new Promise(res => {
+    img.addEventListener("load", res, { once: true });
+    img.addEventListener("error", res, { once: true });
+  }))).then(() => {
+    const wallW = wall.clientWidth;
+    const widths = [120, 140, 160, 180, 200];
+    const gutter = 18, colW = 220;
+    const cols = Math.max(2, Math.floor((wallW + gutter) / (colW + gutter)));
+    const colX = Array.from({ length: cols }, (_, i) => Math.floor(i * (wallW / cols)));
+    const colY = Array.from({ length: cols }, () => 0);
+    let maxY = 0;
+    [...wall.querySelectorAll(".card")].forEach(card => {
+      const w = pick(widths);
+      let c = 0;
+      for (let j = 1; j < cols; j++) if (colY[j] < colY[c]) c = j;
+      const img = card.querySelector("img");
+      const ratio = (img && img.naturalWidth) ? (img.naturalHeight / img.naturalWidth) : 0.75;
+      const h = Math.round((w * ratio) + 26);
+      const x = Math.round(colX[c] + rand(-10, 10));
+      const y = Math.round(colY[c] + rand(0, 10));
+      card.style.width = `${w}px`;
+      card.style.left = `${x}px`;
+      card.style.top = `${y}px`;
+      card.style.setProperty("--rot", `${rand(-2.2, 2.2).toFixed(2)}deg`);
+      colY[c] = y + h + gutter;
+      maxY = Math.max(maxY, colY[c]);
+    });
+    wall.style.height = `${maxY + 20}px`;
+    requestAnimationFrame(frameize);
   });
-
-  wall.style.height = `${maxY + 20}px`;
-
-  requestAnimationFrame(() => frameize());
 }
 
-function boot() {
-  wallizePrints();
-}
-
-window.addEventListener("load", boot);
-window.addEventListener("resize", () => {
-  wallizePrints();
-});
+window.addEventListener("load", wallizePrints);
+window.addEventListener("resize", wallizePrints);
