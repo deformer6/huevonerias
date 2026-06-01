@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>bo bowen</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+
+#starterm {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 16px;
+  z-index: 0;
+  pointer-events: none;
+  white-space: pre;
+  font-family: ui-monospace, sfmono-regular, menlo, consolas, "liberation mono", monospace;
+  font-size: 14px;
+  line-height: 16px;
+  opacity: 0.8;
+  color: rgba(255, 211, 80, 0.9);
+  text-shadow: 0 0 8px rgba(255, 200, 50, 0.3);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 16px;
+  align-items: start;
+  margin-top: 14px;
+}
+
+.hero-col {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 14px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--dim);
+  min-height: 300px;
+}
+
+.hero-col p { margin: 0 0 10px; }
+
+.hero-center {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-center img {
+  width: 100%;
+  display: block;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.hero-label {
+  font-size: 10px;
+  color: var(--dim);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+  font-family: var(--mono);
+}
+
+.anecdotes {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.anecdote {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 12px;
+  align-items: start;
+}
+
+.anecdote.flip {
+  grid-template-columns: 1fr 280px;
+}
+
+.anecdote-img img {
+  width: 100%;
+  display: block;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.anecdote.flip .anecdote-img { order: 2; }
+.anecdote.flip .anecdote-text { order: 1; }
+
+.anecdote-text {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--dim);
+  padding: 4px 0;
+  font-family: var(--mono);
+}
+
+.anecdote-text p { margin: 0 0 10px; }
+
+.anecdote-title {
+  font-size: 11px;
+  color: #7ec8b0;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; }
+  .anecdote, .anecdote.flip { grid-template-columns: 1fr; }
+  .anecdote.flip .anecdote-img,
+  .anecdote.flip .anecdote-text { order: unset; }
+}
+
+</style>
+</head>
+<body>
+
+<pre id="starterm" aria-hidden="true"></pre>
+
+<div class="page">
+
+  <header class="topbar">
+    <div class="row">
+      <span class="kw">bo bowen</span>
+      <span class="dim"> — </span>
+      <span class="dim">before i jump like monkey give me banana</span>
+    </div>
+    <div class="row dim">
+      <span class="fn">contact</span><span class="dim">:</span>
+      <a class="link" href="https://instagram.com/deformer6" target="_blank" rel="noreferrer">deformer6</a>
+      <span class="dim"> / </span>
+      <a class="link" href="mailto:huevonerias@gmail.com">huevonerias@gmail.com</a>
+    </div>
+    <nav class="nav">
+      <a class="nav-link active" href="index.html">home()</a>
+      <a class="nav-link" href="gallery.html">gallery()</a>
+      <a class="nav-link" href="store.html">store()</a>
+    </nav>
+  </header>
+
+  <main class="main">
+
+    <!-- THREE COLUMN HERO -->
+    <div class="hero">
+
+      <!-- LEFT COLUMN — edit this text -->
+      <div class="hero-col">
+        <p>write whatever you want here.</p>
+        <p>introduce yourself. say something weird. leave it blank.</p>
+      </div>
+
+      <!-- CENTER — replace your-main-gif.gif with your actual gif filename -->
+      <div class="hero-center">
+        <img src="images/your-main-gif.gif" alt="main" />
+        <div class="hero-label">// caption here</div>
+      </div>
+
+      <!-- RIGHT COLUMN — edit this text -->
+      <div class="hero-col">
+        <p>more text on this side.</p>
+        <p>links, thoughts, whatever.</p>
+      </div>
+
+    </div>
+
+    <!-- ANECDOTES — duplicate a block to add more entries -->
+    <div class="anecdotes">
+
+      <div class="anecdote">
+        <div class="anecdote-img">
+          <img src="images/your-gif-1.gif" alt="gif 1" />
+        </div>
+        <div class="anecdote-text">
+          <div class="anecdote-title">// entry_01</div>
+          <p>write your anecdote here. talk about the piece, the process, what you were thinking.</p>
+        </div>
+      </div>
+
+      <div class="anecdote flip">
+        <div class="anecdote-img">
+          <img src="images/your-gif-2.gif" alt="gif 2" />
+        </div>
+        <div class="anecdote-text">
+          <div class="anecdote-title">// entry_02</div>
+          <p>another entry. image flips to the right side for variety.</p>
+        </div>
+      </div>
+
+      <div class="anecdote">
+        <div class="anecdote-img">
+          <img src="images/your-gif-3.gif" alt="gif 3" />
+        </div>
+        <div class="anecdote-text">
+          <div class="anecdote-title">// entry_03</div>
+          <p>duplicate this block as many times as you need.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="sig">
+    <pre class="owl"> ,_,
+(o,o)
+{ " }
+-"-"-</pre>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  const term = document.getElementById("starterm");
+  if (!term) return;
+  const cellW = 8, cellH = 16;
+  let w = 80, h = 24;
+  const stars = [];
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function resize() {
+    w = Math.max(40, Math.floor(window.innerWidth / cellW));
+    h = Math.max(14, Math.floor(window.innerHeight / cellH));
+  }
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
+  function addStar() {
+    stars.push({
+      x: rand(0, w),
+      y: 0,
+      vy: rand(1, 3),
+      vx: rand(-0.3, 0.3),
+      twinkle: Math.random() < 0.4,
+      life: rand(6, 16),
+      age: 0
+    });
+  }
+  for (let i = 0; i < 50; i++) {
+    stars.push({
+      x: rand(0, w),
+      y: rand(0, h),
+      vy: rand(1, 3),
+      vx: rand(-0.3, 0.3),
+      twinkle: Math.random() < 0.4,
+      life: rand(6, 16),
+      age: rand(0, 12)
+    });
+  }
+  let last = performance.now();
+  function tick(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    if (Math.random() < 0.15) addStar();
+    for (let i = stars.length - 1; i >= 0; i--) {
+      const s = stars[i];
+      s.age += dt;
+      s.y += s.vy * dt;
+      s.x += s.vx * dt;
+      if (s.y > h || s.age > s.life) stars.splice(i, 1);
+    }
+    const grid = Array.from({ length: h }, () => Array(w).fill(" "));
+    for (const s of stars) {
+      const sx = s.x | 0, sy = s.y | 0;
+      if (sy >= 0 && sy < h && sx >= 0 && sx < w) {
+        grid[sy][sx] = (s.twinkle && Math.random() < 0.25) ? " " : "*";
+      }
+    }
+    term.textContent = grid.map(r => r.join("")).join("\n");
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+
+</body>
+</html>
